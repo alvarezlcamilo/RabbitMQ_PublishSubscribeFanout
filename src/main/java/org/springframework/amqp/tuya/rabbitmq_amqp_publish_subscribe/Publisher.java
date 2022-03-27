@@ -15,21 +15,20 @@ import com.rabbitmq.client.ConnectionFactory;
 public class Publisher {
 
 	private static final int CONNECTION_TIMEOUT = 30000;
-	private static final boolean DURABLE_QUEUE = false;
-	private static final boolean EXCLUSIVE_QUEUE = false;
-	private static final boolean AUTO_DELETE_QUEUE = false;
 	private static final String CONNECTION_USERNAME = "ptyqkvdj";
 	private static final String CONNECTION_PASSWORD = "KHDSMA5mpLi7lEtj2c5tuCPMZPiNjAia";
 	private static final String HOST = "shrimp.rmq.cloudamqp.com";
 	private static final String VIRTUAL_HOST = "ptyqkvdj";
 
-	private String exchangeName;
+	private static final boolean DURABLE_QUEUE = false;
+	private static final boolean EXCLUSIVE_QUEUE = false;
+	private static final boolean AUTO_DELETE_QUEUE = false;
+
 	private Channel channel;
 	private Connection connection;
 
-	public Publisher(String exchangeName, String queueName, Map<String, Object> queueArguments) {
+	public Publisher(String queueName, Map<String, Object> queueArguments) {
 		super();
-		this.exchangeName = exchangeName;
 
 		String uri = System.getenv("CLOUDAMQP_URL");
 		if (uri == null)
@@ -48,7 +47,7 @@ public class Publisher {
 		}
 	}
 
-	public void publish(String message, String routingKey, BasicProperties messageProps) {
+	public void publish(String exchangeName, String message, String routingKey, BasicProperties messageProps) {
 
 		try {
 			channel.basicPublish(exchangeName, routingKey, messageProps, message.getBytes());
@@ -74,7 +73,7 @@ public class Publisher {
 		Map<String, Object> queueArguments = null;
 		String exchangeName = "";
 		String queueName = "hello";
-		Publisher publisher = new Publisher(exchangeName, queueName, queueArguments);
+		Publisher publisher = new Publisher(queueName, queueArguments);
 
 		String routingKey = "hello";
 		String message = "Saludos Comunidad de Desarrolladores!";
@@ -84,7 +83,7 @@ public class Publisher {
 		while (!message.equals("fin")) {
 			System.out.println("Envie mensaje o fin para terminar");
 			message = scanner.nextLine();
-			publisher.publish(message, routingKey, messageProps);
+			publisher.publish(exchangeName, message, routingKey, messageProps);
 			System.out.println("Mensaje publicado en la cola: " + message);
 		}
 		scanner.close();

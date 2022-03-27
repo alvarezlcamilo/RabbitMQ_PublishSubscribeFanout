@@ -39,7 +39,7 @@ public class Consumer extends DefaultConsumer {
 
 		/*
 		 * Retrieving Individual Messages ("Pull API") It is also possible to retrieve
-		 * individual messages on demand ("pull API" a.k.a. polling). This approach to
+		 * individual messages on demand ("Pull API" a.k.a. polling). This approach to
 		 * consumption is highly inefficient as it is effectively polling and
 		 * applications repeatedly have to ask for results even if the vast majority of
 		 * the requests yield no results. Therefore using this approach is highly
