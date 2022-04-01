@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>RabbitMQ_PublishSubscribe_DefaultExchange</name>
+	<name>RabbitMQ_PublishSubscribe_FanoutExchange</name>
 	<comment></comment>
 	<projects>
 	</projects>
