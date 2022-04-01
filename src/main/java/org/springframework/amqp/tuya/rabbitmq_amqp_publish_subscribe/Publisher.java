@@ -20,6 +20,7 @@ public class Publisher {
 	private static final String VIRTUAL_HOST = "integracion.vh";
 	private static final String EXCHANGE_NAME = "notificaciones.fx";
 	private static final String EXCHANGE_TYPE = "fanout";
+	private static final boolean EXCHANGE_DURABLE = true;
 //	private static final String CONNECTION_USERNAME = "ptyqkvdj";
 //	private static final String CONNECTION_PASSWORD = "KHDSMA5mpLi7lEtj2c5tuCPMZPiNjAia";
 //	private static final String HOST = "shrimp.rmq.cloudamqp.com";
@@ -41,7 +42,7 @@ public class Publisher {
 			factory.setConnectionTimeout(CONNECTION_TIMEOUT);
 			connection = factory.newConnection();
 			channel = connection.createChannel();
-			channel.exchangeDeclare(EXCHANGE_NAME, EXCHANGE_TYPE, true);
+			channel.exchangeDeclare(EXCHANGE_NAME, EXCHANGE_TYPE, EXCHANGE_DURABLE);
 		} catch (Exception e) {
 			System.out.println("Error inicializando Publisher");
 			e.printStackTrace();

@@ -16,6 +16,7 @@ public class Subscriber {
 	private static final int CONNECTION_TIMEOUT = 30000;
 	private static final String EXCHANGE_NAME = "notificaciones.fx";
 	private static final String EXCHANGE_TYPE = "fanout";
+	private static final boolean EXCHANGE_DURABLE = true;
 	private static final String CONNECTION_USERNAME = "comunidaddev.u";
 	private static final String CONNECTION_PASSWORD = "comunidaddev.p";
 	private static final String HOST = "lively-greyhound.rmq.cloudamqp.com";
@@ -40,7 +41,7 @@ public class Subscriber {
 			factory.setConnectionTimeout(CONNECTION_TIMEOUT);
 			connection = factory.newConnection();
 			channel = connection.createChannel();
-			channel.exchangeDeclare(EXCHANGE_NAME, EXCHANGE_TYPE, true);
+			channel.exchangeDeclare(EXCHANGE_NAME, EXCHANGE_TYPE, EXCHANGE_DURABLE);
 		} catch (Exception e) {
 			System.out.println("Error inicializando Subscriber");
 			e.printStackTrace();
